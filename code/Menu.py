@@ -4,7 +4,7 @@ from pygame.font import Font
 from pygame.rect import Rect
 from pygame.surface import Surface
 
-from code.Const import WIN_WIDTH, WIN_HEIGHT
+from code.Const import WIN_WIDTH, WIN_HEIGHT, MENU_OPTION, C_WHITE, C_YELLOW, C_ORANGE
 
 
 class Menu:
@@ -26,20 +26,30 @@ class Menu:
         nova_altura = int(altura_imagem * proporcao)
 
         # Redimensionando a imagem
-        self.surf_ajustado = pg.transform.smoothscale(self.surf,(nova_largura, nova_altura))
+        self.surf_ajustado = pg.transform.smoothscale(self.surf, (nova_largura, nova_altura))
 
         # Centralizando a imagem na tela
         pos_x = (WIN_WIDTH - nova_largura) // 2
         pos_y = (WIN_HEIGHT - nova_altura) // 2
 
     def run(self, ):
+        menu_option = 0
         pg.mixer_music.load('./asset/menu.aiff')
         pg.mixer_music.play(-1)
         while True:
             self.window.blit(source=self.surf_ajustado, dest=self.rect)
-            self.menu_text(60, "ZOMBIELAND", (205, 92, 92), ((WIN_WIDTH / 2), 70))
+            self.menu_text(65, "DANGER", (C_YELLOW), ((WIN_WIDTH / 2), 70))
+            self.menu_text(65, "ZONE", (C_YELLOW), ((WIN_WIDTH / 2), 120))
+
+            for i in range(len(MENU_OPTION)):
+                if i == menu_option:
+                    self.menu_text(35, MENU_OPTION[i], (C_ORANGE), ((WIN_WIDTH / 2), 250 + 30 * i))
+                else:
+                    self.menu_text(35, MENU_OPTION[i], (C_WHITE), ((WIN_WIDTH / 2), 250 + 30 * i))
+
             pg.display.flip()
-             # Checando todos os eventos
+
+            # Checando todos os eventos
             for event in pg.event.get():
                 if event.type == pg.QUIT:
                     pg.quit()  # Fechando a janela
