@@ -37,6 +37,7 @@ class Menu:
         pg.mixer_music.load('./asset/menu.aiff')
         pg.mixer_music.play(-1)
         while True:
+            # Desenhando as imagens
             self.window.blit(source=self.surf_ajustado, dest=self.rect)
             self.menu_text(65, "DANGER", (C_YELLOW), ((WIN_WIDTH / 2), 70))
             self.menu_text(65, "ZONE", (C_YELLOW), ((WIN_WIDTH / 2), 120))
@@ -46,7 +47,6 @@ class Menu:
                     self.menu_text(35, MENU_OPTION[i], (C_ORANGE), ((WIN_WIDTH / 2), 250 + 30 * i))
                 else:
                     self.menu_text(35, MENU_OPTION[i], (C_WHITE), ((WIN_WIDTH / 2), 250 + 30 * i))
-
             pg.display.flip()
 
             # Checando todos os eventos
@@ -54,6 +54,19 @@ class Menu:
                 if event.type == pg.QUIT:
                     pg.quit()  # Fechando a janela
                     quit()  # Fechando o pygame
+                if event.type == pg.KEYDOWN:
+                    if event.key == pg.K_DOWN:  # Seta pra baixo
+                        if menu_option < len(MENU_OPTION) - 1:
+                            menu_option += 1
+                        else:
+                            menu_option = 0
+                    if event.key == pg.K_UP:  # Seta pra cima
+                        if menu_option > 0:
+                            menu_option -= 1
+                        else:
+                            menu_option = len(MENU_OPTION) - 1
+                    if event.key == pg.K_RETURN:  # Enter
+                        return MENU_OPTION[menu_option]
 
     def menu_text(self, text_size: int, text: str, text_color: tuple, text_center_pos: tuple):
         text_font: Font = pygame.font.SysFont(name="Lucida Sans Typewriter", size=text_size)
