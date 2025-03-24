@@ -9,7 +9,7 @@ class Entity(ABC):
 
     def __init__(self, name: str, position: tuple):
         self.name = name
-        self.surf = pg.image.load('./asset/' + name + '.png')
+        self.surf = pg.image.load('./asset/' + name + '.png').convert_alpha()
 
         # Obtendo dimensões originais
         largura_imagem, altura_imagem = self.surf.get_size()

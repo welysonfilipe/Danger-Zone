@@ -1,3 +1,5 @@
+import sys
+
 import pygame as pg
 import pygame.image
 from pygame.font import Font
@@ -10,7 +12,7 @@ from code.Const import WIN_WIDTH, WIN_HEIGHT, MENU_OPTION, C_WHITE, C_YELLOW, C_
 class Menu:
     def __init__(self, window):
         self.window = window
-        self.surf = pg.image.load('./asset/MenuBg.png')
+        self.surf = pg.image.load('./asset/MenuBg.png').convert_alpha()
         self.rect = self.surf.get_rect(left=0, top=0)
 
         # Obtendo as dimensões originais da imagem
@@ -53,7 +55,7 @@ class Menu:
             for event in pg.event.get():
                 if event.type == pg.QUIT:
                     pg.quit()  # Fechando a janela
-                    quit()  # Fechando o pygame
+                    sys.exit()  # Fechando o pygame
                 if event.type == pg.KEYDOWN:
                     if event.key == pg.K_DOWN:  # Seta pra baixo
                         if menu_option < len(MENU_OPTION) - 1:
