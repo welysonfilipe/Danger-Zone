@@ -39,7 +39,7 @@ class Menu:
         while True:
             # Desenhando as imagens
             self.window.blit(source=self.surf_ajustado, dest=self.rect)
-            self.menu_text(65, "DANGER", (C_YELLOW), ((WIN_WIDTH / 2), 70))
+            self.menu_text(75, "DANGER", (C_YELLOW), ((WIN_WIDTH / 2), 70))
             self.menu_text(65, "ZONE", (C_YELLOW), ((WIN_WIDTH / 2), 120))
 
             for i in range(len(MENU_OPTION)):
