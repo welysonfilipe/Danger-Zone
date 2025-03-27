@@ -4,8 +4,9 @@ import pygame as pg
 from pygame.font import Font
 from pygame.rect import Rect
 from pygame.surface import Surface
+from pygame.time import set_timer
 
-from code.Const import C_BLACK, WIN_HEIGHT
+from code.Const import C_BLACK, WIN_HEIGHT, WIN_WIDTH, EVENT_ENEMY
 from code.Entity import Entity
 from code.EntityFactory import EntityFactory
 
@@ -21,6 +22,9 @@ class Level:
         self.entity_list.extend(EntityFactory.get_entity('Level1Bg'))
         self.player = EntityFactory.get_entity('Player',(5, WIN_HEIGHT / 1.55))
         self.entity_list.append(self.player)
+        self.enemy = EntityFactory.get_entity('Enemy', (WIN_WIDTH, WIN_HEIGHT / 1.55))
+        self.entity_list.append(self.enemy)
+        pg.time.set_timer(EVENT_ENEMY, 1500)
 
     def run(self):
         pg.mixer_music.load(f'./asset/{self.name}.mp3')
@@ -35,6 +39,8 @@ class Level:
                 if event.type == pg.QUIT:
                     pg.quit()
                     sys.exit()
+                if event.type == EVENT_ENEMY:
+                    self.entity_list.append(self.enemy)
 
             # Printando textos
             self.level_text(14, f'{self.name} - Timeout: {self.timeout / 1000 :.1f}s', C_BLACK, (10, 5))
