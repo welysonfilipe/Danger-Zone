@@ -15,4 +15,4 @@ class EntityFactory:
                     list_bg.append(Background(f'Level1Bg{i}', (WIN_WIDTH, 0)))
                 return list_bg
             case 'Player':
-                return Player('Player',(5, WIN_HEIGHT / 1.8))
+                return Player('Player', position)

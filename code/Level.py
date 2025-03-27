@@ -19,7 +19,8 @@ class Level:
         self.game_mode = game_mode
         self.entity_list: list[Entity] = []
         self.entity_list.extend(EntityFactory.get_entity('Level1Bg'))
-        self.entity_list.append(EntityFactory.get_entity('Player'))
+        self.player = EntityFactory.get_entity('Player',(5, WIN_HEIGHT / 1.55))
+        self.entity_list.append(self.player)
 
     def run(self):
         pg.mixer_music.load(f'./asset/{self.name}.mp3')
