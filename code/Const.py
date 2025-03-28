@@ -21,10 +21,28 @@ ENTITY_SPEED = {
 
 EVENT_ENEMY = pg.USEREVENT + 1
 
+ENTITY_HEALTH = {
+    'Level1Bg0': 999,
+    'Level1Bg1': 999,
+    'Level1Bg2': 999,
+    'Level1Bg3': 999,
+    'Level1Bg4': 999,
+    'Level1Bg5': 999,
+    'Level1Bg6': 999,
+    'Level1Bg7': 999,
+    'Level1Bg8': 999,
+    'Player': 400,
+    'Enemy1': 40,
+    'Enemy2': 50
+}
+
 # M
 MENU_OPTION = ('NEW GAME',
                'SCORE',
                'EXIT')
+
+# S
+SPAWN_TIME = 4000
 
 # W
 WIN_WIDTH = 640

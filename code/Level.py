@@ -7,9 +7,10 @@ from pygame.rect import Rect
 from pygame.surface import Surface
 from pygame.time import set_timer
 
-from code.Const import C_BLACK, WIN_HEIGHT, WIN_WIDTH, EVENT_ENEMY
+from code.Const import C_BLACK, WIN_HEIGHT, WIN_WIDTH, EVENT_ENEMY, SPAWN_TIME, C_WHITE
 from code.Entity import Entity
 from code.EntityFactory import EntityFactory
+from code.EntityMediator import EntityMediator
 
 
 class Level:
@@ -21,9 +22,9 @@ class Level:
         self.game_mode = game_mode
         self.entity_list: list[Entity] = []
         self.entity_list.extend(EntityFactory.get_entity('Level1Bg'))
-        self.player = EntityFactory.get_entity('Player',(5, WIN_HEIGHT / 1.55))
+        self.player = EntityFactory.get_entity('Player', (5, WIN_HEIGHT / 1.55))
         self.entity_list.append(self.player)
-        pg.time.set_timer(EVENT_ENEMY, 4000)
+        pg.time.set_timer(EVENT_ENEMY, SPAWN_TIME)
 
     def run(self):
         pg.mixer_music.load(f'./asset/{self.name}.mp3')
@@ -40,13 +41,16 @@ class Level:
                     sys.exit()
                 if event.type == EVENT_ENEMY:
                     choice = random.choice(('Enemy1', 'Enemy2'))
-                    self.entity_list.append(EntityFactory.get_entity(choice,(WIN_WIDTH, WIN_HEIGHT / 1.55 )))
+                    self.entity_list.append(EntityFactory.get_entity(choice, (WIN_WIDTH, WIN_HEIGHT / 1.55)))
 
             # Printando textos
-            self.level_text(14, f'{self.name} - Timeout: {self.timeout / 1000 :.1f}s', C_BLACK, (10, 5))
-            self.level_text(14, f'fps: {clock.get_fps() : .0f}', C_BLACK, (10, WIN_HEIGHT, -40))
-            self.level_text(14, f'entidades: {len(self.entity_list)}', C_BLACK, (10, WIN_HEIGHT, -30))
+            self.level_text(15, f'{self.name} - Timeout: {self.timeout / 1000 :.1f}s', C_BLACK, (10, 5))
+            self.level_text(15, f'fps: {clock.get_fps() :.0f}', C_WHITE, (10, WIN_HEIGHT - 45))
+            self.level_text(15, f'entidades: {len(self.entity_list)}', C_WHITE, (10, WIN_HEIGHT - 35))
             pg.display.flip()
+            # Colisão
+            EntityMediator.verify_collision(entity_list=self.entity_list) # Verificando colisão
+            EntityMediator.verify_health(entity_list=self.entity_list) # Verificando a vida
         pass
 
     def level_text(self, text_size: int, text: str, text_color: tuple, text_pos: tuple):

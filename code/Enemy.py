@@ -29,5 +29,4 @@ class Enemy(Entity):
 
     def move(self, ):
         self.rect.x -= 1
-        if self.rect.right <= 0:
-            self.rect.left = WIN_WIDTH
+
