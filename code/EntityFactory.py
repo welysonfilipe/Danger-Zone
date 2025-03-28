@@ -17,5 +17,7 @@ class EntityFactory:
                 return list_bg
             case 'Player':
                 return Player('Player', position)
-            case 'Enemy':
-                return Enemy('Enemy', position)
+            case 'Enemy1':
+                return Enemy('Enemy1', position)
+            case 'Enemy2':
+                return Enemy('Enemy2', position)
