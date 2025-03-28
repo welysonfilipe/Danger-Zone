@@ -1,6 +1,6 @@
 import pygame as pg
 
-from code.Const import WIN_WIDTH
+from code.Const import WIN_WIDTH, ENTITY_SPEED
 from code.Entity import Entity
 
 
@@ -28,5 +28,5 @@ class Enemy(Entity):
         self.surf = self.frames[self.current_frame]
 
     def move(self, ):
-        self.rect.x -= 1
+        self.rect.x -= ENTITY_SPEED[self.name]
 

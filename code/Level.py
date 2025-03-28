@@ -8,9 +8,11 @@ from pygame.surface import Surface
 from pygame.time import set_timer
 
 from code.Const import C_BLACK, WIN_HEIGHT, WIN_WIDTH, EVENT_ENEMY, SPAWN_TIME, C_WHITE
+from code.Enemy import Enemy
 from code.Entity import Entity
 from code.EntityFactory import EntityFactory
 from code.EntityMediator import EntityMediator
+from code.Player import Player
 
 
 class Level:
@@ -35,6 +37,10 @@ class Level:
             for ent in self.entity_list:
                 self.window.blit(source=ent.surf, dest=ent.rect)
                 ent.move()
+                if isinstance(ent, (Player, Enemy)):
+                    shoot = ent.shoot()
+                    if shoot is not None:
+                        self.entity_list.append(shoot)
             for event in pg.event.get():
                 if event.type == pg.QUIT:
                     pg.quit()
@@ -49,8 +55,8 @@ class Level:
             self.level_text(15, f'entidades: {len(self.entity_list)}', C_WHITE, (10, WIN_HEIGHT - 35))
             pg.display.flip()
             # Colisão
-            EntityMediator.verify_collision(entity_list=self.entity_list) # Verificando colisão
-            EntityMediator.verify_health(entity_list=self.entity_list) # Verificando a vida
+            EntityMediator.verify_collision(entity_list=self.entity_list)  # Verificando colisão
+            EntityMediator.verify_health(entity_list=self.entity_list)  # Verificando a vida
         pass
 
     def level_text(self, text_size: int, text: str, text_color: tuple, text_pos: tuple):

@@ -1,7 +1,8 @@
 import pygame as pg
 
-from code.Const import WIN_HEIGHT, WIN_WIDTH
+from code.Const import WIN_HEIGHT, WIN_WIDTH, ENTITY_SPEED, PLAYER_KEY_SHOOT
 from code.Entity import Entity
+from code.PlayerShot import PlayerShot
 
 
 class Player(Entity):
@@ -37,15 +38,15 @@ class Player(Entity):
         pressed_key = pg.key.get_pressed()
         now = pg.time.get_ticks()  # Tempo atual
 
-        moving = False # Verificar se o personagem está em movimento
+        moving = False  # Verificar se o personagem está em movimento
 
         # Movimentos horizontais
         if pressed_key[pg.K_LEFT]:
-            self.rect.x -= 4
+            self.rect.x -= ENTITY_SPEED[self.name]
             moving = True
 
         elif pressed_key[pg.K_RIGHT]:
-            self.rect.x += 4
+            self.rect.x += ENTITY_SPEED[self.name]
             moving = True
 
         # Atualizar o frame apenas após o intervalo definido
@@ -74,4 +75,7 @@ class Player(Entity):
                 self.vertical_speed = 0
         pass
 
-
+    def shoot(self):
+        pressed_key = pg.key.get_pressed()
+        if pressed_key[PLAYER_KEY_SHOOT[self.name]]:
+            return PlayerShot(name=f'{self.name}Shot', position=(self.rect.centerx, self.rect.centery))
