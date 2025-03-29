@@ -1,6 +1,6 @@
 import pygame as pg
 
-from code.Const import WIN_HEIGHT, WIN_WIDTH, ENTITY_SPEED, PLAYER_KEY_SHOOT
+from code.Const import WIN_HEIGHT, WIN_WIDTH, ENTITY_SPEED, PLAYER_KEY_SHOOT, ENTITY_SHOOT_DELAY
 from code.Entity import Entity
 from code.PlayerShot import PlayerShot
 
@@ -33,6 +33,7 @@ class Player(Entity):
         self.vertical_speed = 0
         self.last_frame_update = pg.time.get_ticks()  # Marca o tempo do último frame trocado
         self.frame_delay = 100
+        self.shot_delay = ENTITY_SHOOT_DELAY[self.name]
 
     def move(self):
         pressed_key = pg.key.get_pressed()
@@ -76,6 +77,11 @@ class Player(Entity):
         pass
 
     def shoot(self):
-        pressed_key = pg.key.get_pressed()
-        if pressed_key[PLAYER_KEY_SHOOT[self.name]]:
-            return PlayerShot(name=f'{self.name}Shot', position=(self.rect.centerx, self.rect.centery))
+        self.shot_delay -= 1
+        if self.shot_delay == 0:
+            self.shot_delay = ENTITY_SHOOT_DELAY[self.name]
+            pressed_key = pg.key.get_pressed()
+            if pressed_key[PLAYER_KEY_SHOOT[self.name]]:
+                shot_x = self.rect.left + 50
+                shot_y = self.rect.top + 25
+                return PlayerShot(name=f'{self.name}Shot', position=(shot_x, shot_y))

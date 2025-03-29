@@ -4,7 +4,7 @@ import pygame as pg
 C_YELLOW = (255, 223, 0)
 C_WHITE = (255, 255, 255)
 C_ORANGE = (255, 165, 79)
-C_BLACK = (000,000,000)
+C_BLACK = (000, 000, 000)
 
 # E
 ENTITY_SPEED = {
@@ -19,8 +19,10 @@ ENTITY_SPEED = {
     'Level1Bg8': 6,
     'Player': 3,
     'PlayerShot': 3,
-    'Enemy1': 1,
-    'Enemy2': 2
+    'Enemy1': 2,
+    'Enemy1Shot': 5,
+    'Enemy2': 2,
+    'Enemy2Shot': 3
 
 }
 
@@ -39,7 +41,15 @@ ENTITY_HEALTH = {
     'Player': 400,
     'PlayerShot': 1,
     'Enemy1': 40,
-    'Enemy2': 50
+    'Enemy1Shot': 1,
+    'Enemy2': 50,
+    'Enemy2Shot': 1
+}
+
+ENTITY_SHOOT_DELAY = {
+    'Player': 5,
+    'Enemy1': 100,
+    'Enemy2': 100
 }
 
 # M

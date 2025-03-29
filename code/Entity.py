@@ -13,17 +13,20 @@ class Entity(ABC):
 
         # Obtendo dimensões originais
         largura_imagem, altura_imagem = self.surf.get_size()
+        nova_largura = largura_imagem
+        nova_altura = altura_imagem
 
-        # Mantendo a proporção em relação à janela
-        proporcao_largura = WIN_WIDTH / largura_imagem
-        proporcao_altura = WIN_HEIGHT / altura_imagem
-        proporcao = min(proporcao_largura, proporcao_altura)
+        if largura_imagem > 100 and altura_imagem > 100: # Apenas redimensionar imagens grandes
+            # Mantendo a proporção em relação à janela
+            proporcao_largura = WIN_WIDTH / largura_imagem
+            proporcao_altura = WIN_HEIGHT / altura_imagem
+            proporcao = min(proporcao_largura, proporcao_altura)
 
-        nova_largura = int(largura_imagem * proporcao)
-        nova_altura = int(altura_imagem * proporcao)
+            nova_largura = int(largura_imagem * proporcao)
+            nova_altura = int(altura_imagem * proporcao)
 
-        # Redimensionando a imagem
-        self.surf = pg.transform.smoothscale(self.surf, (nova_largura, nova_altura))
+            # Redimensionando a imagem
+            self.surf = pg.transform.smoothscale(self.surf, (nova_largura, nova_altura))
 
         # Centralizando a imagem na tela
         pos_x = (WIN_WIDTH - nova_largura) // 2
