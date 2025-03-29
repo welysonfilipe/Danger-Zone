@@ -18,7 +18,7 @@ from code.Player import Player
 class Level:
 
     def __init__(self, window, name, game_mode):
-        self.timeout = 0
+        self.timeout = 20
         self.window = window
         self.name = name
         self.game_mode = game_mode
