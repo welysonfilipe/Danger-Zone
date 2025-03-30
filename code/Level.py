@@ -7,7 +7,8 @@ from pygame.rect import Rect
 from pygame.surface import Surface
 from pygame.time import set_timer
 
-from code.Const import C_BLACK, WIN_HEIGHT, WIN_WIDTH, EVENT_ENEMY, SPAWN_TIME, C_WHITE
+from code.Const import C_BLACK, WIN_HEIGHT, WIN_WIDTH, EVENT_ENEMY, SPAWN_TIME, C_WHITE, EVENT_TIMEOUT, TIMEOUT_STEP, \
+    TIMEOUT_LEVEL
 from code.Enemy import Enemy
 from code.Entity import Entity
 from code.EntityFactory import EntityFactory
@@ -17,18 +18,20 @@ from code.Player import Player
 
 class Level:
 
-    def __init__(self, window, name, game_mode):
-        self.timeout = 20000
+    def __init__(self, window: Surface, name: str, game_mode: str, player_score: list[int]):
+        self.timeout = TIMEOUT_LEVEL
         self.window = window
         self.name = name
         self.game_mode = game_mode
         self.entity_list: list[Entity] = []
-        self.entity_list.extend(EntityFactory.get_entity('Level1Bg'))
-        self.player = EntityFactory.get_entity('Player', (5, WIN_HEIGHT / 1.55))
-        self.entity_list.append(self.player)
+        self.entity_list.extend(EntityFactory.get_entity(self.name + 'Bg'))
+        player = EntityFactory.get_entity('Player', (5, WIN_HEIGHT / 1.55))
+        player.score = player_score[0]
+        self.entity_list.append(player)
         pg.time.set_timer(EVENT_ENEMY, SPAWN_TIME)
+        pg.time.set_timer(EVENT_TIMEOUT, TIMEOUT_STEP)
 
-    def run(self):
+    def run(self, player_score: int):
         pg.mixer_music.load(f'./asset/{self.name}.mp3')
         pg.mixer_music.play(-1)
         clock = pg.time.Clock()
@@ -50,6 +53,22 @@ class Level:
                 if event.type == EVENT_ENEMY:
                     choice = random.choice(('Enemy1', 'Enemy2'))
                     self.entity_list.append(EntityFactory.get_entity(choice, (WIN_WIDTH, WIN_HEIGHT / 1.55)))
+                if event.type == EVENT_TIMEOUT:
+                    self.timeout -= TIMEOUT_STEP
+                    if self.timeout == 0:
+                        for ent in self.entity_list:
+                            if isinstance(ent, Player) and ent.name == 'Player':
+                                player_score[0] = ent.score
+                        return True
+
+                found_player = False
+
+                for ent in self.entity_list:
+                    if isinstance(ent, Player):
+                        found_player = True
+
+                if not found_player:
+                    return False
 
             # Printando textos
             self.level_text(16, f'{self.name} - Timeout: {self.timeout / 1000 :.1f}s', C_BLACK, (10, 5))
