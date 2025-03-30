@@ -23,7 +23,6 @@ ENTITY_SPEED = {
     'Enemy1Shot': 5,
     'Enemy2': 2,
     'Enemy2Shot': 3
-
 }
 
 EVENT_ENEMY = pg.USEREVENT + 1
@@ -38,7 +37,7 @@ ENTITY_HEALTH = {
     'Level1Bg6': 999,
     'Level1Bg7': 999,
     'Level1Bg8': 999,
-    'Player': 400,
+    'Player': 300,
     'PlayerShot': 1,
     'Enemy1': 40,
     'Enemy1Shot': 1,
@@ -68,6 +67,24 @@ ENTITY_DAMAGE = {
     'Enemy1Shot': 20,
     'Enemy2': 1,
     'Enemy2Shot': 15
+}
+
+ENTITY_SCORE = {
+    'Level1Bg0': 0,
+    'Level1Bg1': 0,
+    'Level1Bg2': 0,
+    'Level1Bg3': 0,
+    'Level1Bg4': 0,
+    'Level1Bg5': 0,
+    'Level1Bg6': 0,
+    'Level1Bg7': 0,
+    'Level1Bg8': 0,
+    'Player': 0,
+    'PlayerShot': 0,
+    'Enemy1': 100,
+    'Enemy1Shot': 0,
+    'Enemy2': 125,
+    'Enemy2Shot': 0
 }
 
 # M

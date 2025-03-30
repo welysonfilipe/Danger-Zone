@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 import pygame as pg
 import pygame.image
 
-from code.Const import WIN_WIDTH, WIN_HEIGHT, ENTITY_HEALTH, ENTITY_DAMAGE
+from code.Const import WIN_WIDTH, WIN_HEIGHT, ENTITY_HEALTH, ENTITY_DAMAGE, ENTITY_SCORE
 
 
 class Entity(ABC):
@@ -36,6 +36,7 @@ class Entity(ABC):
         self.speed = 0
         self.health = ENTITY_HEALTH[self.name]
         self.damage = ENTITY_DAMAGE[self.name]
+        self.score = ENTITY_SCORE[self.name]
         self.last_dmg = 'None'
 
     @abstractmethod

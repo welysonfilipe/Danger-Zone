@@ -18,7 +18,7 @@ from code.Player import Player
 class Level:
 
     def __init__(self, window, name, game_mode):
-        self.timeout = 20
+        self.timeout = 20000
         self.window = window
         self.name = name
         self.game_mode = game_mode
@@ -41,6 +41,8 @@ class Level:
                     shoot = ent.shoot()
                     if shoot is not None:
                         self.entity_list.append(shoot)
+                if ent.name == 'Player':
+                    self.level_text(16, f'Player - health: {ent.health} | Score: {ent.score}', C_BLACK, (10, 25))
             for event in pg.event.get():
                 if event.type == pg.QUIT:
                     pg.quit()
@@ -50,9 +52,9 @@ class Level:
                     self.entity_list.append(EntityFactory.get_entity(choice, (WIN_WIDTH, WIN_HEIGHT / 1.55)))
 
             # Printando textos
-            self.level_text(15, f'{self.name} - Timeout: {self.timeout / 1000 :.1f}s', C_BLACK, (10, 5))
-            self.level_text(15, f'fps: {clock.get_fps() :.0f}', C_WHITE, (10, WIN_HEIGHT - 45))
-            self.level_text(15, f'entidades: {len(self.entity_list)}', C_WHITE, (10, WIN_HEIGHT - 35))
+            self.level_text(16, f'{self.name} - Timeout: {self.timeout / 1000 :.1f}s', C_BLACK, (10, 5))
+            self.level_text(16, f'fps: {clock.get_fps() :.0f}', C_WHITE, (10, WIN_HEIGHT - 30))
+            self.level_text(16, f'entidades: {len(self.entity_list)}', C_WHITE, (10, WIN_HEIGHT - 20))
             pg.display.flip()
             # Colisão
             EntityMediator.verify_collision(entity_list=self.entity_list)  # Verificando colisão
