@@ -46,9 +46,9 @@ class Menu:
 
             for i in range(len(MENU_OPTION)):
                 if i == menu_option:
-                    self.menu_text(35, MENU_OPTION[i], (C_ORANGE), ((WIN_WIDTH / 2), 250 + 30 * i))
+                    self.menu_text(40, MENU_OPTION[i], (C_ORANGE), ((WIN_WIDTH / 2), 250 + 30 * i))
                 else:
-                    self.menu_text(35, MENU_OPTION[i], (C_WHITE), ((WIN_WIDTH / 2), 250 + 30 * i))
+                    self.menu_text(40, MENU_OPTION[i], (C_WHITE), ((WIN_WIDTH / 2), 250 + 30 * i))
             pg.display.flip()
 
             # Checando todos os eventos
