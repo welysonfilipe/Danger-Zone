@@ -38,7 +38,7 @@ class Menu:
         menu_option = 0
         pg.mixer_music.load('./asset/menu.aiff')
         pg.mixer_music.play(-1)
-        pg.mixer_music.set_volume(0.3)
+        pg.mixer_music.set_volume(0.4)
         while True:
             # Desenhando as imagens
             self.window.blit(source=self.surf_ajustado, dest=self.rect)
